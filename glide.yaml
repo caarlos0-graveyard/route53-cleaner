@@ -1,0 +1,8 @@
+package: github.com/caarlos0/route53-cleaner
+import:
+- package: github.com/aws/aws-sdk-go
+  version: ~1.6.15
+- package: github.com/caarlos0/spin
+  version: ~1.0.0
+- package: github.com/urfave/cli
+  version: ~1.19.1

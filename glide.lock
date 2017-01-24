@@ -1,0 +1,10 @@
+hash: 36ce7fd783ae795acfcacfae14fb8897557c6084ae2bc2cca2bb54da32a8f987
+updated: 2017-01-24T19:25:41.484665393-02:00
+imports:
+- name: github.com/aws/aws-sdk-go
+  version: 15bd33ce2edbdb46acdec779652ed39926682a9f
+- name: github.com/caarlos0/spin
+  version: f1f63cceace559408b09577f25210edb9b2215c3
+- name: github.com/urfave/cli
+  version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
+testImports: []
