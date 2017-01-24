@@ -93,9 +93,8 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "route53-cleaner"
 	app.Version = version
-	app.Author = "Carlos Alexandro Becker (caarlos0@gmail.com)"
-	app.Usage = "Find possibly unused route53 records"
-	app.Flags = []cli.Flag{}
+	app.Author = "Carlos Alexandro Becker (root@carlosbecker.com)"
+	app.Usage = "Find records that could be deleted from your AWS Route53 hosted zones"
 	app.Action = func(c *cli.Context) error {
 		sess, err := session.NewSession()
 		if err != nil {
