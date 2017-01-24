@@ -1,0 +1,10 @@
+language: go
+go: 1.7.4
+install:
+  - go get github.com/Masterminds/glide
+  - glide install
+script: go test -cover `glide nv`
+after_success:
+  test -n "$TRAVIS_TAG" && go get github.com/goreleaser/goreleaser && goreleaser
+notifications:
+  email: false

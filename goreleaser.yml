@@ -1,0 +1,7 @@
+build:
+  goarch:
+    - amd64
+brew:
+  repo: caarlos0/homebrew-tap
+  folder: Formula
+  caveat: "You'll need a valid aws cli configuration into ~/.aws/credentials, or, run this exporting both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables"
