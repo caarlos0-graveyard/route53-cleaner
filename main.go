@@ -116,6 +116,9 @@ func main() {
 
 		var removables []*route53.ResourceRecordSet
 		for _, record := range records {
+			if *record.Type == "NS" || *record.Type == "SOA" {
+				continue
+			}
 			var used bool
 			for _, r := range record.ResourceRecords {
 				for _, addr := range addrs {
