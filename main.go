@@ -85,6 +85,17 @@ func allValidAddrs(sess *session.Session) (addrs []string, err error) {
 		); err != nil {
 			return addrs, err
 		}
+		if err := rds.New(sess, cfg).DescribeDBInstancesPages(
+			&rds.DescribeDBInstancesInput{},
+			func(output *rds.DescribeDBInstancesOutput, lastPage bool) (shouldContinue bool) {
+				for _, db := range output.DBInstances {
+					addrs = append(addrs, *db.Endpoint.Address)
+				}
+				return !lastPage
+			},
+		); err != nil {
+			return addrs, err
+		}
 	}
 	return
 }
