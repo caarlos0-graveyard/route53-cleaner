@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/elbv2"
+	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/route53"
 	"github.com/caarlos0/spin"
 	"github.com/urfave/cli"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/elbv2"
 )
 
 var version = "master"
@@ -25,8 +26,7 @@ func allRecordSets(sess *session.Session) (records []*route53.ResourceRecordSet,
 			zones = append(zones, output.HostedZones...)
 			return !lastPage
 		},
-	);
-		err != nil {
+	); err != nil {
 		return records, err
 	}
 
