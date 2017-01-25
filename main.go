@@ -21,10 +21,22 @@ func isUsed(record *route53.ResourceRecordSet, addrs []string) bool {
 		for _, addr := range addrs {
 			if *r.Value == addr {
 				if debug {
-					log.Println("Used:", *r.Value, "=", addr)
+					log.Println(*record.Type, "record to", addr)
 				}
 				return true
 			}
+		}
+	}
+	if record.AliasTarget == nil {
+		return false
+	}
+	var alias = strings.TrimSuffix(*record.AliasTarget.DNSName, ".")
+	for _, addr := range addrs {
+		if alias == addr {
+			if debug {
+				log.Println(*record.Type, "ALIAS to", addr)
+			}
+			return true
 		}
 	}
 	return false

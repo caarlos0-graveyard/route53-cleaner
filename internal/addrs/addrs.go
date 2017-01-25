@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/aws/aws-sdk-go/service/elbv2"
+	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"golang.org/x/sync/errgroup"
 )
@@ -70,12 +70,12 @@ func instanceResolver(sess *session.Session, cfg *aws.Config) (addrs []string, e
 }
 
 func elbResolver(sess *session.Session, cfg *aws.Config) (addrs []string, err error) {
-	err = elbv2.New(sess, cfg).DescribeLoadBalancersPages(
-		&elbv2.DescribeLoadBalancersInput{},
-		func(output *elbv2.DescribeLoadBalancersOutput, lastPage bool) bool {
-			for _, elb := range output.LoadBalancers {
-				if elb.DNSName != nil {
-					addrs = append(addrs, *elb.DNSName)
+	err = elb.New(sess, cfg).DescribeLoadBalancersPages(
+		&elb.DescribeLoadBalancersInput{},
+		func(output *elb.DescribeLoadBalancersOutput, lastPage bool) bool {
+			for _, e := range output.LoadBalancerDescriptions {
+				if e.DNSName != nil {
+					addrs = append(addrs, *e.DNSName)
 				}
 			}
 			return !lastPage
