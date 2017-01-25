@@ -4,7 +4,6 @@ install: make setup
 script:
   - make ci
 after_success:
-  - git status
   - test -n "$TRAVIS_TAG" && go get github.com/goreleaser/goreleaser && goreleaser
 notifications:
   email: false
