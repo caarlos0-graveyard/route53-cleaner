@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/route53"
 	"github.com/caarlos0/route53-cleaner/internal/addrs"
-	"github.com/caarlos0/route53-cleaner/routes"
+	"github.com/caarlos0/route53-cleaner/internal/routes"
 	"github.com/caarlos0/spin"
 	"github.com/urfave/cli"
 )
