@@ -28,8 +28,7 @@ can check the code or give it read-only keys if you do not trust that affirmatio
 Either by having a `~/.aws/credentials`, `~/.aws/config` or the `AWS_ACCESS_KEY_ID` and 
 `AWS_SECRET_ACCESS_KEY` environment variables exported.
 
-More info [here](
-)
+More info can be found in the [aws-sdk-go documentation](https://github.com/aws/aws-sdk-go#configuring-credentials).
 
 ## Contributing
 
