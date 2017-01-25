@@ -22,6 +22,11 @@ $ brew install caarlos0/tap/route53-cleaner
 $ go get github.com/caarlos0/route53-cleaner
 ```
 
+### Manually
+
+Download the [latest release](https://github.com/caarlos0/route53-cleaner/releases),
+extract it and execute the `route53-cleaner` binary.
+
 ## Usage
 
 Just running it will show a list of records you may remove:
