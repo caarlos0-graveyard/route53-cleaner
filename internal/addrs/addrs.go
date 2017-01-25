@@ -26,6 +26,7 @@ func All(sess *session.Session) (addrs []string, err error) {
 	for _, region := range resp.Regions {
 		var cfg = aws.NewConfig().WithRegion(*region.RegionName)
 		for _, resolver := range resolvers {
+			resolver := resolver
 			g.Go(func() error {
 				result, err := resolver(sess, cfg)
 				if err != nil {
