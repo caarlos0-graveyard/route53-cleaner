@@ -10,9 +10,28 @@ Suggests records that could be deleted from your AWS Route53 hosted zones.
 
 ## Install
 
+### Via homebrew (macOS only):
+
 ```console
 $ brew install caarlos0/tap/route53-cleaner
 ```
+
+### Via go get:
+
+```console
+$ go get github.com/caarlos0/route53-cleaner
+```
+
+## Usage
+
+Just running it will show a list of records you may remove:
+
+```console
+$ route53-cleaner
+```
+
+You can also run in debug mode with `-d` flag. The `--help` flag will show you
+a list of available options.
 
 ## How it works
 
