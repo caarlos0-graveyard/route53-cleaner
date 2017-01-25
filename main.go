@@ -100,6 +100,17 @@ func allValidAddrs(sess *session.Session) (addrs []string, err error) {
 	return
 }
 
+func isUsed(record *route53.ResourceRecordSet, addrs []string) bool {
+	for _, r := range record.ResourceRecords {
+		for _, addr := range addrs {
+			if *r.Value == addr {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "route53-cleaner"
@@ -114,31 +125,31 @@ func main() {
 		spin := spin.New("\033[36m %s Working...\033[m")
 		spin.Start()
 
-		addrs, err := allValidAddrs(sess)
-		if err != nil {
-			return cli.NewExitError(err.Error(), 1)
-		}
-
 		records, err := allRecordSets(sess)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
 
-		var removables []*route53.ResourceRecordSet
+		addrs, err := allValidAddrs(sess)
+		if err != nil {
+			return cli.NewExitError(err.Error(), 1)
+		}
+
 		for _, record := range records {
-			if *record.Type == "NS" || *record.Type == "SOA" {
+			if *record.Type != "CNAME" {
 				continue
 			}
-			var used bool
 			for _, r := range record.ResourceRecords {
-				for _, addr := range addrs {
-					if *r.Value == addr {
-						used = true
-						continue
-					}
-				}
+				addrs = append(addrs, *r.Value)
 			}
-			if !used {
+		}
+
+		var removables []*route53.ResourceRecordSet
+		for _, record := range records {
+			if *record.Type != "A" && *record.Type != "AAAA" && *record.Type != "CNAME" {
+				continue
+			}
+			if !isUsed(record, addrs) {
 				removables = append(removables, record)
 			}
 		}
