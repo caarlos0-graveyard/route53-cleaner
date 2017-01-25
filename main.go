@@ -73,6 +73,12 @@ func main() {
 				addrs = append(addrs, *r.Value)
 			}
 		}
+
+		if debug {
+			log.Println("Addrs found:", addrs)
+			log.Println("\n\n")
+		}
+
 		var removables []*route53.ResourceRecordSet
 		for _, record := range records {
 			if debug {
