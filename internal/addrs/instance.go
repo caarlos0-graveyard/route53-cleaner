@@ -13,8 +13,8 @@ func instanceResolver(sess *session.Session, cfg *aws.Config) (addrs []string, e
 			for _, reservation := range output.Reservations {
 				for _, instance := range reservation.Instances {
 					// TODO: maybe avoid terminated-ing instances?
-					if instance.PrivateIpAddress != nil {
-						addrs = append(addrs, *instance.PrivateIpAddress)
+					for _, eni := range instance.NetworkInterfaces {
+						addrs = append(addrs, *eni.PrivateIpAddress)
 					}
 					if instance.PublicDnsName != nil {
 						addrs = append(addrs, *instance.PublicDnsName)
