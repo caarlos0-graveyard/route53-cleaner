@@ -40,8 +40,11 @@ a list of available options.
 
 ## How it works
 
-Route53 Cleaner scans all your instances, ELBs, RDSs and Route53 zones' records,
-then compiles and prints a list of records that might not being used.
+Route53 Cleaner scans [several resources from your account](/issues/1) and check
+your records against those resources addresses, compiling a list of records that 
+might not be used.
+
+These records are then printed to the user in an easy-to-pipe format.
 
 Please note that Route53 Cleaner **will never change anything in your account**. You
 can check the code or give it read-only keys if you do not trust that affirmation 
