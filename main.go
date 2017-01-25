@@ -88,7 +88,7 @@ func main() {
 
 		if debug {
 			log.Println("Addrs found:", addrs)
-			log.Println("\n\n")
+			log.Printf("\n\n\n")
 		}
 
 		var removables []*route53.ResourceRecordSet
@@ -112,7 +112,7 @@ func main() {
 
 		if debug {
 			log.SetPrefix("")
-			log.Println("\n")
+			log.Printf("\n\n")
 		}
 		for _, record := range removables {
 			log.Println(strings.TrimSuffix(*record.Name, "."))
