@@ -6,3 +6,6 @@ import:
   version: ~1.0.0
 - package: github.com/urfave/cli
   version: ~1.19.1
+- package: golang.org/x/sync
+  subpackages:
+  - errgroup

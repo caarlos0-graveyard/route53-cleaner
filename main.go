@@ -4,101 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/aws/aws-sdk-go/service/elbv2"
-	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/route53"
+	"github.com/caarlos0/route53-cleaner/internal/addrs"
+	"github.com/caarlos0/route53-cleaner/routes"
 	"github.com/caarlos0/spin"
 	"github.com/urfave/cli"
 )
 
 var version = "master"
-
-func allRecordSets(sess *session.Session) (records []*route53.ResourceRecordSet, err error) {
-	svc := route53.New(sess)
-
-	var zones []*route53.HostedZone
-	if err := svc.ListHostedZonesPages(
-		&route53.ListHostedZonesInput{},
-		func(output *route53.ListHostedZonesOutput, lastPage bool) (shouldContinue bool) {
-			zones = append(zones, output.HostedZones...)
-			return !lastPage
-		},
-	); err != nil {
-		return records, err
-	}
-
-	for _, zone := range zones {
-		if err := svc.ListResourceRecordSetsPages(&route53.ListResourceRecordSetsInput{
-			HostedZoneId: zone.Id,
-		}, func(output *route53.ListResourceRecordSetsOutput, lastPage bool) (shouldContinue bool) {
-			records = append(records, output.ResourceRecordSets...)
-			return !lastPage
-		}); err != nil {
-			return records, err
-		}
-	}
-	return
-}
-
-func allValidAddrs(sess *session.Session) (addrs []string, err error) {
-	resp, err := ec2.New(sess, aws.NewConfig().WithRegion("us-east-1")).DescribeRegions(&ec2.DescribeRegionsInput{})
-	if err != nil {
-		return
-	}
-	for _, region := range resp.Regions {
-		var cfg = aws.NewConfig().WithRegion(*region.RegionName)
-		if err := ec2.New(sess, cfg).DescribeInstancesPages(
-			&ec2.DescribeInstancesInput{},
-			func(output *ec2.DescribeInstancesOutput, lastPage bool) (shouldContinue bool) {
-				for _, reservation := range output.Reservations {
-					for _, instance := range reservation.Instances {
-						// TODO: maybe avoid terminated-ing instances?
-						if instance.PrivateIpAddress != nil {
-							addrs = append(addrs, *instance.PrivateIpAddress)
-						}
-						if instance.PublicDnsName != nil {
-							addrs = append(addrs, *instance.PublicDnsName)
-						}
-						if instance.PublicIpAddress != nil {
-							addrs = append(addrs, *instance.PublicIpAddress)
-						}
-					}
-				}
-				return !lastPage
-			},
-		); err != nil {
-			return addrs, err
-		}
-		if err := elbv2.New(sess, cfg).DescribeLoadBalancersPages(
-			&elbv2.DescribeLoadBalancersInput{},
-			func(output *elbv2.DescribeLoadBalancersOutput, lastPage bool) (shouldContinue bool) {
-				for _, elb := range output.LoadBalancers {
-					if elb.DNSName != nil {
-						addrs = append(addrs, *elb.DNSName)
-					}
-				}
-				return !lastPage
-			},
-		); err != nil {
-			return addrs, err
-		}
-		if err := rds.New(sess, cfg).DescribeDBInstancesPages(
-			&rds.DescribeDBInstancesInput{},
-			func(output *rds.DescribeDBInstancesOutput, lastPage bool) (shouldContinue bool) {
-				for _, db := range output.DBInstances {
-					addrs = append(addrs, *db.Endpoint.Address)
-				}
-				return !lastPage
-			},
-		); err != nil {
-			return addrs, err
-		}
-	}
-	return
-}
 
 func isUsed(record *route53.ResourceRecordSet, addrs []string) bool {
 	for _, r := range record.ResourceRecords {
@@ -125,12 +39,12 @@ func main() {
 		spin := spin.New("\033[36m %s Working...\033[m")
 		spin.Start()
 
-		records, err := allRecordSets(sess)
+		records, err := routes.All(sess)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
 
-		addrs, err := allValidAddrs(sess)
+		addrs, err := addrs.All(sess)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
