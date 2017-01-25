@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "github.com/caarlos0/spin": {
+            "branch": "master"
+        }
+    }
+}
