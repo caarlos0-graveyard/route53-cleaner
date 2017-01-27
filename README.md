@@ -7,6 +7,7 @@ Suggests records that could be deleted from your AWS Route53 hosted zones.
 [![Travis](https://img.shields.io/travis/caarlos0/route53-cleaner.svg?style=flat-square)](https://travis-ci.org/caarlos0/route53-cleaner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/caarlos0/route53-cleaner?style=flat-square)](https://goreportcard.com/report/github.com/caarlos0/route53-cleaner)
 [![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser)
+[![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/caarlos0)
 
 ## Install
 
