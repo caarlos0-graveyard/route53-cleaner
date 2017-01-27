@@ -20,6 +20,7 @@ func All(sess *session.Session) (addrs []string, err error) {
 		instanceResolver,
 		rdsResolver,
 		elbResolver,
+		cloudFrontResolver,
 	}
 	var g errgroup.Group
 	var m sync.Mutex
