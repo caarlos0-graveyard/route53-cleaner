@@ -1,4 +1,5 @@
 build:
+  main: ./cmd/main/main.go
   goarch:
     - amd64
 brew:
