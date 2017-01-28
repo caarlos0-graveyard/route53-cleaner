@@ -12,7 +12,6 @@ import (
 )
 
 var version = "master"
-var debug bool
 
 func main() {
 	app := cli.NewApp()
