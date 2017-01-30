@@ -36,9 +36,6 @@ Just running it will show a list of records you may remove:
 $ route53-cleaner
 ```
 
-You can also run in debug mode with `-d` flag. The `--help` flag will show you
-a list of available options.
-
 ## How it works
 
 Route53 Cleaner scans [several resources from your account](/issues/1) and check
