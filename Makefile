@@ -1,21 +1,20 @@
-# go list -f {{.Dir}} ./... | grep -v vendor | sed "s;$PWD;\.;g"
-SOURCE_PACKAGES?=$$(go list ./... | grep -v vendor)
-SOURCE_FILES?=$$(find . -name '*.go' -not -wholename './vendor/*')
+SOURCE_FILES?=$$(go list ./... | grep -v /vendor/)
 TEST_PATTERN?=.
 TEST_OPTIONS?=
 
 setup: ## Install all the build and lint dependencies
 	go get -u github.com/alecthomas/gometalinter
-	go get -u github.com/golang/dep
+	go get -u github.com/golang/dep/...
+	go get -u github.com/pierrre/gotestcover
+	go get -u golang.org/x/tools/cmd/cover
 	dep ensure
 	gometalinter --install
 
 test: ## Run all the tests
-	go test $(TEST_OPTIONS) -cover $(SOURCE_PACKAGES) -run $(TEST_PATTERN) -timeout=30s
+	gotestcover $(TEST_OPTIONS) -covermode=count -coverprofile=coverage.out $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=30s
 
 fmt: ## gofmt and goimports all go files
-	gofmt -w -s $(SOURCE_FILES)
-	goimports -w $(SOURCE_FILES)
+	find . -name '*.go' -not -wholename './vendor/*' | while read -r file; do gofmt -w -s "$$file"; goimports -w "$$file"; done
 
 lint: ## Run all the linters
 	gometalinter --vendor --disable-all \
@@ -30,7 +29,7 @@ lint: ## Run all the linters
 		--enable=errcheck \
 		--enable=vet \
 		--enable=vetshadow \
-		--deadline=1m \
+		--deadline=10m \
 		./...
 
 ci: lint test ## Run all the tests and code checks
