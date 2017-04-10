@@ -1,10 +1,10 @@
 {
-    "memo": "2e53380954af5f8b9baf3bee7bd7c7e02789e3719629db4d61b9177a18238409",
+    "memo": "8624be3a52306aff35437f8de9c399581b42578ad3a665e8af50f21be407182b",
     "projects": [
         {
             "name": "github.com/aws/aws-sdk-go",
-            "version": "v1.6.16",
-            "revision": "d19ab4db0d0710880bef4634767f1a9382aee67c",
+            "version": "v1.8.11",
+            "revision": "200fde3f632bb9f036ec0b8cb29fbc8588155ea5",
             "packages": [
                 "aws",
                 "aws/awserr",
@@ -29,7 +29,6 @@
                 "private/protocol/rest",
                 "private/protocol/restxml",
                 "private/protocol/xml/xmlutil",
-                "private/waiter",
                 "service/cloudfront",
                 "service/ec2",
                 "service/elb",
