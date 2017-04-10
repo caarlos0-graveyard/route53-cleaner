@@ -1,5 +1,5 @@
 {
-    "memo": "8624be3a52306aff35437f8de9c399581b42578ad3a665e8af50f21be407182b",
+    "memo": "10d3f8e91f9f2de81f75e072b3e853540728113910491eedef9f8d436e1f35e9",
     "projects": [
         {
             "name": "github.com/aws/aws-sdk-go",
@@ -39,8 +39,8 @@
         },
         {
             "name": "github.com/caarlos0/spin",
-            "branch": "master",
-            "revision": "8d4ccc4e452b4459089a8437920a8584d29f8ff9",
+            "version": "v1.0.0",
+            "revision": "f1f63cceace559408b09577f25210edb9b2215c3",
             "packages": [
                 "."
             ]
