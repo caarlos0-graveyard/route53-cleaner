@@ -1,0 +1,89 @@
+{
+    "memo": "10d3f8e91f9f2de81f75e072b3e853540728113910491eedef9f8d436e1f35e9",
+    "projects": [
+        {
+            "name": "github.com/aws/aws-sdk-go",
+            "version": "v1.8.11",
+            "revision": "200fde3f632bb9f036ec0b8cb29fbc8588155ea5",
+            "packages": [
+                "aws",
+                "aws/awserr",
+                "aws/awsutil",
+                "aws/client",
+                "aws/client/metadata",
+                "aws/corehandlers",
+                "aws/credentials",
+                "aws/credentials/ec2rolecreds",
+                "aws/credentials/endpointcreds",
+                "aws/credentials/stscreds",
+                "aws/defaults",
+                "aws/ec2metadata",
+                "aws/endpoints",
+                "aws/request",
+                "aws/session",
+                "aws/signer/v4",
+                "private/protocol",
+                "private/protocol/ec2query",
+                "private/protocol/query",
+                "private/protocol/query/queryutil",
+                "private/protocol/rest",
+                "private/protocol/restxml",
+                "private/protocol/xml/xmlutil",
+                "service/cloudfront",
+                "service/ec2",
+                "service/elb",
+                "service/rds",
+                "service/route53",
+                "service/sts"
+            ]
+        },
+        {
+            "name": "github.com/caarlos0/spin",
+            "version": "v1.0.0",
+            "revision": "f1f63cceace559408b09577f25210edb9b2215c3",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/go-ini/ini",
+            "version": "v1.24.0",
+            "revision": "e3c2d47c61e5333f9aa2974695dd94396eb69c75",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/jmespath/go-jmespath",
+            "version": "0.2.2",
+            "revision": "3433f3ea46d9f8019119e7dd41274e112a2359a9",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/urfave/cli",
+            "version": "v1.19.1",
+            "revision": "0bdeddeeb0f650497d603c4ad7b20cfe685682f6",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "f2499483f923065a842d38eb4c7f1927e6fc6e6d",
+            "packages": [
+                "context"
+            ]
+        },
+        {
+            "name": "golang.org/x/sync",
+            "branch": "master",
+            "revision": "450f422ab23cf9881c94e2db30cac0eb1b7cf80c",
+            "packages": [
+                "errgroup"
+            ]
+        }
+    ]
+}
