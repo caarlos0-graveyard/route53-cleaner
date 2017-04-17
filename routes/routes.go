@@ -1,3 +1,4 @@
+// Package routes can find all route53 records of a given account
 package routes
 
 import (
@@ -5,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/route53"
 )
 
+// All route53 records of the account
 func All(sess *session.Session) (records []*route53.ResourceRecordSet, err error) {
 	svc := route53.New(sess)
 
