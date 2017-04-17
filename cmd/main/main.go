@@ -21,14 +21,15 @@ func main() {
 	app.Usage = "Find records that could be deleted from your AWS Route53 hosted zones"
 	app.Action = func(c *cli.Context) error {
 		log.SetFlags(0)
-		spin := spin.New("\033[36m %s Working...\033[m")
+		var spin = spin.New("\033[36m %s Working...\033[m")
+		spin.Start()
+		defer spin.Stop()
 		sess, err := session.NewSession()
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
-		spin.Start()
 
-		removables, err := route53cleaner.Removables(sess)
+		removables, err := route53cleaner.FindUnused(sess)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
