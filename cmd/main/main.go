@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/caarlos0/route53-cleaner"
+	route53cleaner "github.com/caarlos0/route53-cleaner"
 	"github.com/caarlos0/spin"
 	"github.com/urfave/cli"
 )
@@ -28,7 +28,7 @@ func main() {
 		}
 		spin.Start()
 
-		removables, err := route53_cleaner.Removables(sess)
+		removables, err := route53cleaner.Removables(sess)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}

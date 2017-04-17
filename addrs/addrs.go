@@ -1,3 +1,4 @@
+// Package addrs finds DNS names of all AWS resource.
 package addrs
 
 import (
@@ -11,6 +12,7 @@ import (
 
 type resolver func(sess *session.Session, cfg *aws.Config) (addrs []string, err error)
 
+// All DNS names of all AWS resources in this account
 func All(sess *session.Session) (addrs []string, err error) {
 	resp, err := ec2.New(sess, aws.NewConfig().WithRegion("us-east-1")).DescribeRegions(&ec2.DescribeRegionsInput{})
 	if err != nil {

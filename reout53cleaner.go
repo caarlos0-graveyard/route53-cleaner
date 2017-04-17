@@ -1,19 +1,23 @@
-package route53_cleaner
+// Package route53cleaner can find unused entries on Route53
+package route53cleaner
 
 import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/route53"
-	"github.com/caarlos0/route53-cleaner/internal/addrs"
-	"github.com/caarlos0/route53-cleaner/internal/routes"
+	"github.com/caarlos0/route53-cleaner/addrs"
+	"github.com/caarlos0/route53-cleaner/routes"
 )
 
-type Removable struct {
+// UnusedRecord represents a probably unused record that may be removed
+type UnusedRecord struct {
 	Name, Type, Addr string
 }
 
-func Removables(sess *session.Session) (removables []Removable, err error) {
+// FindUnused returns records that are not being used and can probably
+// be removed.
+func FindUnused(sess *session.Session) (removables []UnusedRecord, err error) {
 	records, err := routes.All(sess)
 	if err != nil {
 		return removables, err
@@ -37,13 +41,13 @@ func Removables(sess *session.Session) (removables []Removable, err error) {
 			continue
 		}
 		if !isUsed(record, addrs) {
-			removables = append(removables, NewRemovable(record))
+			removables = append(removables, newUnused(record))
 		}
 	}
 	return
 }
 
-func NewRemovable(record *route53.ResourceRecordSet) Removable {
+func newUnused(record *route53.ResourceRecordSet) UnusedRecord {
 	var addrs []string
 	for _, r := range record.ResourceRecords {
 		addrs = append(addrs, *r.Value)
@@ -51,7 +55,7 @@ func NewRemovable(record *route53.ResourceRecordSet) Removable {
 	if record.AliasTarget != nil {
 		addrs = append(addrs, *record.AliasTarget.DNSName)
 	}
-	return Removable{
+	return UnusedRecord{
 		Name: *record.Name,
 		Addr: strings.Join(addrs, ", "),
 		Type: *record.Type,

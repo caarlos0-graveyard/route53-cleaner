@@ -6,8 +6,9 @@ Suggests records that could be deleted from your AWS Route53 hosted zones.
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Travis](https://img.shields.io/travis/caarlos0/route53-cleaner.svg?style=flat-square)](https://travis-ci.org/caarlos0/route53-cleaner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/caarlos0/route53-cleaner?style=flat-square)](https://goreportcard.com/report/github.com/caarlos0/route53-cleaner)
-[![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser)
+[![Godoc](https://godoc.org/github.com/caarlos0/route53-cleaner?status.svg&style=flat-square)](http://godoc.org/github.com/caarlos0/route53-cleaner)
 [![SayThanks.io](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg?style=flat-square)](https://saythanks.io/to/caarlos0)
+[![Powered By: GoReleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser)
 
 ## Install
 
@@ -39,18 +40,18 @@ $ route53-cleaner
 ## How it works
 
 Route53 Cleaner scans [several resources from your account](/issues/1) and check
-your records against those resources addresses, compiling a list of records that 
+your records against those resources addresses, compiling a list of records that
 might not be used.
 
 These records are then printed to the user in an easy-to-pipe format.
 
 Please note that Route53 Cleaner **will never change anything in your account**. You
-can check the code or give it read-only keys if you do not trust that affirmation 
+can check the code or give it read-only keys if you do not trust that affirmation
 (I won't blame you for that).
 
 ## Auth
 
-Either by having a `~/.aws/credentials`, `~/.aws/config` or the `AWS_ACCESS_KEY_ID` and 
+Either by having a `~/.aws/credentials`, `~/.aws/config` or the `AWS_ACCESS_KEY_ID` and
 `AWS_SECRET_ACCESS_KEY` environment variables exported.
 
 More info can be found in the [aws-sdk-go documentation](https://github.com/aws/aws-sdk-go#configuring-credentials).
